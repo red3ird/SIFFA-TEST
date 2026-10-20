@@ -1,0 +1,185 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Perfil de usuario autenticado en SIFFA",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "format": "email", "description": "Correo institucional o de acceso" },
+        "displayName": { "type": "string", "description": "Nombre completo" },
+        "role": { "type": "string", "enum": ["SUPER_ADMIN", "ADMIN_CREDENTIALS", "INSTITUTIONAL_MANAGER", "AUDITOR", "VALIDATOR", "PROFESSIONAL"] },
+        "professionalId": { "type": "string", "description": "ID del registro profesional asociado si aplica" },
+        "status": { "type": "string", "enum": ["ACTIVE", "SUSPENDED", "PENDING"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "email", "role", "status"]
+    },
+    "Professional": {
+      "title": "Professional",
+      "description": "Profesional gestionado para ingreso a establecimientos penitenciarios",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "authUid": { "type": "string" },
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "documentNumber": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "professionalRole": { "type": "string", "enum": ["DOCENTE", "INSTRUCTOR", "DIRECTIVO", "ORGANIZADOR"] },
+        "status": { "type": "string", "enum": ["ACTIVE", "SUSPENDED", "INACTIVE"] },
+        "profilePhotoUrl": { "type": "string" },
+        "matricula": { "type": "string" },
+        "specialty": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "firstName", "lastName", "documentNumber", "email", "professionalRole", "status"]
+    },
+    "Establishment": {
+      "title": "Establishment",
+      "description": "Unidad o establecimiento penitenciario donde se desarrollan actividades SIFFA",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "code": { "type": "string" },
+        "province": { "type": "string" },
+        "municipality": { "type": "string" },
+        "address": { "type": "string" },
+        "status": { "type": "string", "enum": ["ACTIVE", "INACTIVE"] }
+      },
+      "required": ["id", "name", "code", "province", "status"]
+    },
+    "Authorization": {
+      "title": "Authorization",
+      "description": "Autorización penitenciaria de acceso (colección separada)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "personId": { "type": "string", "description": "ID del profesional / integrante SIFFA" },
+        "professionalId": { "type": "string" },
+        "establishmentId": { "type": "string" },
+        "actividad": { "type": "string" },
+        "fechas": { "type": "object" },
+        "validFrom": { "type": "string" },
+        "validUntil": { "type": "string" },
+        "diasYHorarios": { "type": "string" },
+        "funcion": { "type": "string" },
+        "status": { "type": "string", "enum": ["PENDIENTE", "AUTORIZADA", "SUSPENDIDA", "REVOCADA", "VENCIDA"] },
+        "referenciaDeLaAutorizacion": { "type": "string" },
+        "approvedBy": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "personId", "establishmentId", "actividad", "validFrom", "validUntil", "status", "referenciaDeLaAutorizacion"]
+    },
+    "Credential": {
+      "title": "Credential",
+      "description": "Credencial física y digital SIFFA con qrToken público criptográfico único",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "credentialNumber": { "type": "string", "description": "Número de credencial institucional visible" },
+        "personId": { "type": "string", "description": "Identificador del integrante vinculado" },
+        "professionalId": { "type": "string" },
+        "authorizationId": { "type": "string" },
+        "qrToken": { "type": "string", "description": "Token aleatorio seguro mínimo 128 bits base64url no derivable de DNI ni credencial" },
+        "qrTokenVersion": { "type": "integer" },
+        "credentialVersion": { "type": "integer" },
+        "issuedAt": { "type": "string" },
+        "expiresAt": { "type": "string" },
+        "status": { "type": "string", "enum": ["ACTIVA", "SUSPENDIDA", "REVOCADA", "VENCIDA", "DENUNCIADA_PERDIDA"] },
+        "createdAt": { "type": "string" },
+        "revokedAt": { "type": "string" },
+        "revokedReason": { "type": "string" }
+      },
+      "required": ["id", "credentialNumber", "personId", "qrToken", "qrTokenVersion", "issuedAt", "expiresAt", "status"]
+    },
+    "AccessEvent": {
+      "title": "AccessEvent",
+      "description": "Registro de decisión de acceso en garita o puesto de control",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "professionalId": { "type": "string" },
+        "credentialId": { "type": "string" },
+        "authorizationId": { "type": "string" },
+        "establishmentId": { "type": "string" },
+        "validatorDeviceId": { "type": "string" },
+        "validationMode": { "type": "string", "enum": ["ONLINE", "OFFLINE"] },
+        "decision": { "type": "string", "enum": ["ALLOWED", "DENIED"] },
+        "reasonCode": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "credentialVersion": { "type": "integer" },
+        "synchronizationStatus": { "type": "string", "enum": ["SYNCED", "PENDING_SYNC"] }
+      },
+      "required": ["id", "decision", "validationMode", "timestamp"]
+    },
+    "AuditEvent": {
+      "title": "AuditEvent",
+      "description": "Registro inmutable de auditoría para trazabilidad de operaciones administrativas",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "actorUserId": { "type": "string" },
+        "actorEmail": { "type": "string" },
+        "action": { "type": "string" },
+        "entityType": { "type": "string" },
+        "entityId": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "result": { "type": "string", "enum": ["SUCCESS", "FAILURE", "DENIED"] },
+        "metadata": { "type": "object" }
+      },
+      "required": ["id", "actorUserId", "action", "entityType", "timestamp", "result"]
+    },
+    "SiteImage": {
+      "title": "SiteImage",
+      "description": "Imágenes y banners personalizados de la web cargados por el administrador",
+      "type": "object",
+      "properties": {
+        "key": { "type": "string" },
+        "dataUrl": { "type": "string" },
+        "title": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["key", "dataUrl"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Usuarios institucionales y asignación de roles"
+    },
+    "/professionals/{professionalId}": {
+      "schema": "Professional",
+      "description": "Legajos de profesionales habilitados"
+    },
+    "/establishments/{establishmentId}": {
+      "schema": "Establishment",
+      "description": "Establecimientos penitenciarios"
+    },
+    "/authorizations/{authorizationId}": {
+      "schema": "Authorization",
+      "description": "Autorizaciones contextuales de ingreso"
+    },
+    "/credentials/{credentialId}": {
+      "schema": "Credential",
+      "description": "Credenciales emitidas"
+    },
+    "/accessEvents/{eventId}": {
+      "schema": "AccessEvent",
+      "description": "Eventos de acceso en puestos de control"
+    },
+    "/auditEvents/{auditId}": {
+      "schema": "AuditEvent",
+      "description": "Eventos de auditoría administrativa"
+    },
+    "/siteImages/{imageId}": {
+      "schema": "SiteImage",
+      "description": "Imágenes y fotografías de la web administradas institucionalmente"
+    }
+  }
+}

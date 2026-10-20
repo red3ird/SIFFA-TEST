@@ -1,0 +1,6 @@
+{
+  "name": "SIFFA - Fútbol Femenino en Cárceles",
+  "description": "Sistema Integral de Gestión y Readaptación Social en Unidades Penitenciarias de la Provincia de Buenos Aires - SIFFA",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

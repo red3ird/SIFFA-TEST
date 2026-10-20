@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIFFA - Sindicato Internacional de Fútbol Femenino | Portal Oficial</title>
+  <meta name="description" content="Sistema Integral de Educación y Readaptación Social en Cárceles Bonaerenses - SIFFA" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            siffaNavy: '#001738',
+            siffaEmerald: '#10B981',
+            siffaAmber: '#F59E0B',
+            siffaDark: '#000f24',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome 6 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body class="bg-[#F8FAFC] text-slate-900 min-h-screen flex flex-col antialiased">
+
+  <!-- ========================================================================= -->
+  <!-- 1. TOPBAR INSTITUCIONAL & CONTRATO DE GOBERNANZA (ESTILO FIFA/CONMEBOL) -->
+  <!-- ========================================================================= -->
+  <header class="bg-[#001738] text-white shadow-sm sticky top-0 z-40 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-4">
+        
+        <!-- Zona 1: Wordmark Único -->
+        <div class="flex items-center gap-3 shrink-0">
+          <div class="w-9 h-9 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shadow-sm border border-emerald-400/30">
+            <i class="fa-solid fa-futbol text-white"></i>
+          </div>
+          <div>
+            <span class="text-lg font-extrabold tracking-tight text-white">SIFFA</span>
+            <span class="text-xs text-slate-400 font-normal ml-2 hidden sm:inline">
+              Sindicato Internacional de Fútbol Femenino
+            </span>
+          </div>
+        </div>
+
+        <!-- Zona 2: Enlaces Educativos e Informativos -->
+        <nav class="hidden lg:flex items-center gap-1 xl:gap-2" id="navTabs">
+          <button onclick="switchTab('home')" class="tab-btn px-3.5 py-2 text-xs font-semibold rounded-lg transition-colors bg-white/10 text-emerald-400 shadow-xs cursor-pointer" data-target="home">
+            Inicio
+          </button>
+          <button onclick="switchTab('campus')" class="tab-btn px-3.5 py-2 text-xs font-semibold rounded-lg transition-colors text-slate-300 hover:text-white hover:bg-white/5 cursor-pointer" data-target="campus">
+            Campus Virtual
+          </button>
+          <button onclick="switchTab('acreditaciones')" class="tab-btn px-3.5 py-2 text-xs font-semibold rounded-lg transition-colors text-slate-300 hover:text-white hover:bg-white/5 cursor-pointer" data-target="acreditaciones">
+            Acreditaciones Docentes (QR)
+          </button>
+          <button onclick="switchTab('programa')" class="tab-btn px-3.5 py-2 text-xs font-semibold rounded-lg transition-colors text-slate-300 hover:text-white hover:bg-white/5 cursor-pointer" data-target="programa">
+            Programa & Pedagogía
+          </button>
+        </nav>
+
+        <!-- Zona 3: Acceso con Google & Credencial QR -->
+        <div class="flex items-center gap-2.5">
+          <button onclick="openQRModal()" class="inline-flex items-center gap-2 px-3 py-2 text-xs font-bold text-white bg-white/10 hover:bg-white/15 border border-white/20 rounded-lg shadow-sm transition-colors cursor-pointer whitespace-nowrap" title="Credencial QR para ingreso laboral a penales">
+            <i class="fa-solid fa-qrcode text-amber-300"></i>
+            <span class="hidden sm:inline">Credencial</span> QR
+          </button>
+
+          <button onclick="openGoogleModal()" id="btnHeaderGoogle" class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-bold text-slate-800 bg-white hover:bg-slate-100 rounded-lg shadow-xs transition-all cursor-pointer whitespace-nowrap">
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span id="labelGoogleUser">Acceder con Google</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- CONTENEDOR PRINCIPAL -->
+  <!-- ========================================================================= -->
+  <main class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1">
+    
+    <!-- PESTAÑA: INICIO INSTITUCIONAL -->
+    <section id="tab-home" class="tab-content active space-y-10">
+      
+      <!-- Hero Banner Oficial -->
+      <div class="relative rounded-2xl overflow-hidden shadow-lg border border-slate-800 bg-[#001738] text-white p-8 sm:p-12 lg:p-16">
+        <div class="relative z-10 max-w-3xl">
+          <div class="flex items-center gap-2 text-xs font-semibold text-emerald-400 mb-3 tracking-wide uppercase">
+            <span>Sindicato Internacional de Fútbol Femenino</span>
+            <span>·</span>
+            <span class="text-slate-300">Educación & Readaptación Social</span>
+            <span>·</span>
+            <span class="text-amber-400">Convenio PBA - SPB</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight mb-4">
+            Fútbol Femenino en las Cárceles: Un Camino hacia la Readaptación Social
+          </h1>
+
+          <p class="text-sm sm:text-base text-slate-200 font-normal leading-relaxed mb-8 max-w-2xl">
+            Plataforma institucional del programa de formación integral y deportiva implementado en Unidades Penitenciarias bonaerenses. Accedé a nuestras aulas virtuales, consultá el padrón de docentes acreditadas para el ingreso a penales y conocé el marco pedagógico de reinserción.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <button onclick="switchTab('campus')" class="px-5 py-3 text-xs sm:text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-500 rounded-xl transition-all shadow-md cursor-pointer">
+              Explorar Campus Virtual <i class="fa-solid fa-arrow-right ml-1"></i>
+            </button>
+            <button onclick="openQRModal()" class="px-5 py-3 text-xs sm:text-sm font-semibold text-slate-100 bg-white/10 hover:bg-white/15 border border-white/20 rounded-xl transition-all cursor-pointer">
+              <i class="fa-solid fa-qrcode text-amber-300 mr-1.5"></i> Credencial QR de Trabajo (Docentes)
+            </button>
+            <button onclick="openGoogleModal()" class="px-5 py-3 text-xs sm:text-sm font-semibold text-slate-300 hover:text-white rounded-xl transition-colors cursor-pointer">
+              Acceder con Google
+            </button>
+          </div>
+        </div>
+
+        <div class="relative z-10 mt-10 pt-6 border-t border-slate-700/60 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+          <div>
+            <span class="text-slate-400 block text-[11px]">Población Penitenciaria en Programa</span>
+            <span class="font-mono text-base font-bold text-white">482 Participantes</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block text-[11px]">Complejos Carcelarios</span>
+            <span class="font-mono text-base font-bold text-white">8 Unidades SPB</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block text-[11px]">Cuerpo Técnico Habilitado</span>
+            <span class="font-mono text-base font-bold text-emerald-400">36 Docentes con QR</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block text-[11px]">Supervisión General</span>
+            <span class="text-white font-medium">Dra. Silvina Campos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accesos Directos Institucionales -->
+      <div>
+        <div class="mb-5">
+          <h2 class="text-xl font-bold tracking-tight text-slate-900">Módulos Informativos & Educacionales</h2>
+          <p class="text-xs text-slate-500">Capacitación audiovisual, marco pedagógico del convenio y acreditación laboral</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div onclick="switchTab('campus')" class="p-6 bg-white rounded-2xl border border-slate-200/90 hover:border-emerald-500/50 hover:shadow-md transition-all cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center mb-4 text-xl">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900">Campus Virtual & Clases</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">Aulas audiovisuales con formación técnica deportiva, talleres de salud integral y herramientas para la inserción laboral.</p>
+            </div>
+            <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-700">
+              <span>Ir a las Clases</span>
+              <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </div>
+          </div>
+
+          <div onclick="switchTab('acreditaciones')" class="p-6 bg-white rounded-2xl border border-slate-200/90 hover:border-amber-500/50 hover:shadow-md transition-all cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center mb-4 text-xl">
+                <i class="fa-solid fa-id-card-clip"></i>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900">Credenciales QR de Trabajo</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">Padrón oficial de profesoras habilitadas con código QR para validación en garita al ingresar a trabajar a los penales.</p>
+            </div>
+            <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-amber-700">
+              <span>Ver Padrón de Docentes</span>
+              <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </div>
+          </div>
+
+          <div onclick="switchTab('programa')" class="p-6 bg-white rounded-2xl border border-slate-200/90 hover:border-blue-500/50 hover:shadow-md transition-all cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center mb-4 text-xl">
+                <i class="fa-solid fa-book-open-reader"></i>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900">Programa & Pedagogía</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">Fundamentos pedagógicos, estímulo educativo bajo la Ley 12.256 y estándares internacionales de derechos humanos.</p>
+            </div>
+            <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-700">
+              <span>Conocer el Programa</span>
+              <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- PESTAÑA: CAMPUS VIRTUAL -->
+    <section id="tab-campus" class="tab-content space-y-6">
+      <div class="bg-white rounded-xl p-6 border border-slate-200/90 shadow-xs flex flex-col md:flex-row justify-between gap-4">
+        <div>
+          <span class="text-xs font-semibold text-emerald-700 uppercase tracking-wide">Modalidad Híbrida</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">Campus Virtual SIFFA: Educación y Readaptación</h2>
+          <p class="text-xs text-slate-600 mt-1">Aulas audiovisuales transmitidas a los sumideros educativos de las Unidades Penitenciarias.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="openGoogleModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-xs cursor-pointer">
+            Registrar Avance con Google
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-xs space-y-2">
+          <span class="text-xs font-bold text-emerald-700 uppercase">Módulo 01</span>
+          <h3 class="text-lg font-bold text-slate-900">Deportivo & Táctica</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Fundamentos físicos, táctica de fútbol 11 y reglamento oficial IFAB.</p>
+        </div>
+
+        <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-xs space-y-2">
+          <span class="text-xs font-bold text-blue-700 uppercase">Módulo 02</span>
+          <h3 class="text-lg font-bold text-slate-900">Salud Integral & Psicología</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Manejo de emociones, dinámicas de convivencia y prevención sanitaria.</p>
+        </div>
+
+        <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-xs space-y-2">
+          <span class="text-xs font-bold text-amber-700 uppercase">Módulo 03</span>
+          <h3 class="text-lg font-bold text-slate-900">Inserción Laboral</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Herramientas para el egreso: arbitraje, indumentaria textil y gestión comunitaria.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PESTAÑA: ACREDITACIONES DOCENTES CON QR -->
+    <section id="tab-acreditaciones" class="tab-content space-y-6">
+      <div class="bg-white rounded-xl p-6 border border-slate-200/90 shadow-xs flex flex-col md:flex-row justify-between gap-4">
+        <div>
+          <span class="text-xs font-semibold text-emerald-700 uppercase tracking-wide">Credencial de Ingreso Laboral</span>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">Acreditaciones Laborales & Credencial Digital QR</h2>
+          <p class="text-xs text-slate-600 mt-1">
+            Padrón oficial de profesoras habilitadas para el ingreso a dictar clases en penales.
+            <strong class="text-slate-800">(Esta credencial QR es para control en garita al ir a trabajar; para la web se usa cuenta de Google).</strong>
+          </p>
+        </div>
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-right">
+          <span class="text-[11px] font-bold text-slate-400 uppercase">Supervisión</span>
+          <div class="font-extrabold text-sm text-slate-900">Dra. Silvina Campos</div>
+          <div class="text-[11px] text-slate-500">Dir. General SIFFA - SPB</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="bg-white rounded-xl border border-slate-200/90 shadow-xs p-5 space-y-4">
+          <div class="flex items-start gap-3">
+            <div class="w-14 h-14 rounded-xl bg-[#001738] text-white flex items-center justify-center font-bold text-lg">MG</div>
+            <div>
+              <span class="text-[10px] font-mono text-slate-400">ATFA-4821</span>
+              <h3 class="font-bold text-slate-900 text-base">Lic. Marcela Giménez</h3>
+              <p class="text-xs text-emerald-800 font-semibold">DT Nacional & Coordinadora</p>
+            </div>
+          </div>
+          <div class="text-xs text-slate-600 space-y-1">
+            <p><strong>Unidad:</strong> U33 Los Hornos / U8</p>
+            <p><strong>Autoprotección:</strong> Aprobado (10/10)</p>
+            <p><strong>Nivel de Acceso:</strong> Nivel 3 (Acceso Penal)</p>
+          </div>
+          <button onclick="openQRModal()" class="w-full py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition-colors cursor-pointer">
+            Ver Credencial QR de Trabajo
+          </button>
+        </div>
+
+        <div class="bg-white rounded-xl border border-slate-200/90 shadow-xs p-5 space-y-4">
+          <div class="flex items-start gap-3">
+            <div class="w-14 h-14 rounded-xl bg-[#001738] text-white flex items-center justify-center font-bold text-lg">RA</div>
+            <div>
+              <span class="text-[10px] font-mono text-slate-400">PE-1928</span>
+              <h3 class="font-bold text-slate-900 text-base">Prof. Romina Albornoz</h3>
+              <p class="text-xs text-emerald-800 font-semibold">Preparadora Física</p>
+            </div>
+          </div>
+          <div class="text-xs text-slate-600 space-y-1">
+            <p><strong>Unidad:</strong> U47 San Martín</p>
+            <p><strong>Autoprotección:</strong> Aprobado (9.5/10)</p>
+            <p><strong>Nivel de Acceso:</strong> Nivel 3 (Acceso Penal)</p>
+          </div>
+          <button onclick="openQRModal()" class="w-full py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition-colors cursor-pointer">
+            Ver Credencial QR de Trabajo
+          </button>
+        </div>
+
+        <div class="bg-white rounded-xl border border-slate-200/90 shadow-xs p-5 space-y-4">
+          <div class="flex items-start gap-3">
+            <div class="w-14 h-14 rounded-xl bg-[#001738] text-white flex items-center justify-center font-bold text-lg">FN</div>
+            <div>
+              <span class="text-[10px] font-mono text-slate-400">MP-8920</span>
+              <h3 class="font-bold text-slate-900 text-base">Lic. Florencia Navarro</h3>
+              <p class="text-xs text-emerald-800 font-semibold">Psicóloga Social</p>
+            </div>
+          </div>
+          <div class="text-xs text-slate-600 space-y-1">
+            <p><strong>Unidad:</strong> U50 Batán (Mar del Plata)</p>
+            <p><strong>Autoprotección:</strong> Aprobado con Distinción</p>
+            <p><strong>Nivel de Acceso:</strong> Nivel 3 (Acceso Penal)</p>
+          </div>
+          <button onclick="openQRModal()" class="w-full py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition-colors cursor-pointer">
+            Ver Credencial QR de Trabajo
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PESTAÑA: PROGRAMA & PEDAGOGÍA -->
+    <section id="tab-programa" class="tab-content space-y-6">
+      <div class="bg-white rounded-xl p-8 border border-slate-200/90 shadow-xs">
+        <span class="text-xs font-semibold text-emerald-700 uppercase tracking-wide">Marco Pedagógico</span>
+        <h2 class="text-2xl font-bold text-slate-900 mt-1">Programa Oficial de Readaptación Social SIFFA</h2>
+        <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed max-w-3xl">
+          El programa de fútbol femenino en cárceles busca la transformación de hábitos de convivencia, el aprendizaje de reglas y la generación de oportunidades laborales reales mediante la acreditación de horas formativas.
+        </p>
+      </div>
+
+      <div class="bg-[#001738] text-white p-8 rounded-2xl border border-slate-800 space-y-4">
+        <h3 class="text-xl font-bold">Estímulo Educativo (Art. 140 Ley 12.256)</h3>
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-3xl">
+          La acreditación de participación en los módulos sociodeportivos de SIFFA permite certificar horas de estudio computables para la reducción de plazos de condena bajo la supervisión de juzgados de ejecución penal.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: REGISTRO/LOGIN CON CUENTA DE GOOGLE -->
+  <!-- ========================================================================= -->
+  <div id="modalGoogle" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full overflow-hidden shadow-2xl border border-slate-200 p-6 text-center space-y-4">
+      <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto">
+        <svg class="w-6 h-6" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+        </svg>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-bold text-slate-900">Acceso Oficial con Cuenta de Google</h3>
+        <p class="text-xs text-slate-500 mt-1">Iniciá sesión para registrar tu avance en el Campus Virtual y acceder a material educativo.</p>
+      </div>
+
+      <button onclick="simulateGoogleLogin()" class="w-full py-3 px-4 bg-white hover:bg-slate-50 border border-slate-300 rounded-xl shadow-xs text-xs font-bold text-slate-800 flex items-center justify-center gap-2 cursor-pointer">
+        <svg class="w-4 h-4" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+        </svg>
+        <span>Continuar como Matías Medina (matiasmedina.n@gmail.com)</span>
+      </button>
+
+      <div class="text-[11px] text-slate-500 bg-slate-50 p-3 rounded-lg border border-slate-200 text-left">
+        <strong>Nota Institucional:</strong> Las credenciales QR son exclusivamente para docentes al ingresar a trabajar a los penales, no para registrarse en la web.
+      </div>
+
+      <button onclick="closeGoogleModal()" class="w-full py-2 bg-slate-200 text-slate-800 rounded-lg text-xs font-semibold cursor-pointer">
+        Cerrar
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL: CREDENCIAL QR DE TRABAJO -->
+  <div id="modalQR" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full overflow-hidden shadow-2xl border border-slate-200">
+      <div class="bg-[#001738] text-white px-5 py-3.5 flex justify-between items-center">
+        <span class="font-bold text-xs">Credencial Laboral SIFFA · Acceso Penal</span>
+        <button onclick="closeQRModal()" class="text-slate-300 hover:text-white font-bold">&times;</button>
+      </div>
+
+      <div class="p-6 text-center text-xs space-y-4">
+        <div class="w-14 h-14 rounded-xl bg-[#001738] text-white flex items-center justify-center text-xl mx-auto border-2 border-emerald-400">
+          <i class="fa-solid fa-futbol text-white"></i>
+        </div>
+        <div>
+          <h3 class="font-extrabold text-slate-900 text-base">Lic. Marcela Giménez</h3>
+          <p class="text-emerald-800 font-semibold">Directora Técnica Nacional (ATFA-4821)</p>
+          <p class="text-slate-500 text-[11px] font-mono mt-0.5">DNI: 32.849.120 · Nivel 3 (Acceso Penal)</p>
+        </div>
+
+        <div class="w-36 h-36 bg-slate-900 text-white flex items-center justify-center mx-auto rounded-xl p-2 shadow-inner">
+          <i class="fa-solid fa-qrcode text-7xl text-white"></i>
+        </div>
+
+        <div class="text-[11px] text-slate-500">
+          <span class="text-emerald-700 font-bold block">✓ Credencial de Trabajo Habilitada</span>
+          Supervisado por Dirección General · Dra. Silvina Campos
+        </div>
+
+        <button onclick="alert('Garita de Guardia SPB: ACCESO LABORAL AUTORIZADO (Nivel 3).')" class="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-lg text-xs cursor-pointer">
+          Simular Validación en Garita de Guardia
+        </button>
+      </div>
+
+      <div class="bg-slate-50 px-4 py-2.5 text-right border-t border-slate-100">
+        <button onclick="closeQRModal()" class="px-3.5 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-lg text-xs font-semibold cursor-pointer">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-[#001128] text-slate-400 border-t border-slate-800 text-xs py-8 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <p class="text-white font-bold">SIFFA · Sindicato Internacional de Fútbol Femenino y Afines</p>
+        <p class="text-[11px] text-slate-400">Programa de Readaptación Social en Cárceles Bonaerenses · Supervisión Dra. Silvina Campos</p>
+      </div>
+      <div class="text-[11px] text-slate-500">
+        SIFFA Oficial · Plataforma Educativa e Informativa
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(function(el) {
+        el.classList.remove('active');
+      });
+      const target = document.getElementById('tab-' + tabId);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('.tab-btn').forEach(function(btn) {
+        if (btn.getAttribute('data-target') === tabId) {
+          btn.classList.remove('text-slate-300', 'hover:text-white', 'hover:bg-white/5');
+          btn.classList.add('bg-white/10', 'text-emerald-400', 'shadow-xs');
+        } else {
+          btn.classList.remove('bg-white/10', 'text-emerald-400', 'shadow-xs');
+          btn.classList.add('text-slate-300', 'hover:text-white', 'hover:bg-white/5');
+        }
+      });
+    }
+
+    function openQRModal() {
+      document.getElementById('modalQR').classList.remove('hidden');
+    }
+    function closeQRModal() {
+      document.getElementById('modalQR').classList.add('hidden');
+    }
+    function openGoogleModal() {
+      document.getElementById('modalGoogle').classList.remove('hidden');
+    }
+    function closeGoogleModal() {
+      document.getElementById('modalGoogle').classList.add('hidden');
+    }
+    function simulateGoogleLogin() {
+      document.getElementById('labelGoogleUser').innerText = 'Matías Medina';
+      closeGoogleModal();
+      alert('Sesión iniciada con éxito con tu cuenta de Google.');
+    }
+  </script>
+
+</body>
+</html>

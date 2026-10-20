@@ -1,11 +1,60 @@
-<div align="center">
+# SIFFA - Sindicato Internacional de Fútbol Femenino y Afines
+## Plataforma Institucional, Credenciales Digitales QR Dinámicas y Control de Accesos
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+Convenio Oficial de Cooperación con el Ministerio de Justicia y Derechos Humanos de la Provincia de Buenos Aires y el Servicio Penitenciario Bonaerense (SPB).
 
-  <h1>Built with AI Studio</h2>
+---
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+### 📋 Requisitos Previos
+- **Node.js** v18 o superior
+- **npm** v9 o superior (o bun / yarn / pnpm)
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+---
 
-</div>
+### 🚀 Instalación y Puesta en Marcha
+
+1. **Instalar dependencias**:
+   ```bash
+   npm install
+   ```
+
+2. **Iniciar en modo desarrollo**:
+   ```bash
+   npm run dev
+   ```
+   La aplicación se abrirá en `http://localhost:3000`.
+
+3. **Construir para producción**:
+   ```bash
+   npm run build
+   ```
+
+4. **Ejecutar servidor en producción**:
+   ```bash
+   npm start
+   ```
+
+---
+
+### 🔑 Perfiles de Prueba Pre-configurados
+
+| Perfil | Correo de Acceso | Contraseña | Rol / Función |
+| :--- | :--- | :--- | :--- |
+| **Matías Medina** | `matiasmedina.n@gmail.com` | `admin2026` | Super Administrador SIFFA |
+| **Lic. Marcela Giménez** | `marcela.gimenez@siffa.org` | `marcela2026` | Docente DT Fútbol 11 (UP33) |
+| **Prof. Romina Albornoz** | `romina.albornoz@siffa.org` | `romina2026` | Preparadora Física (UP47) |
+| **Lic. Florencia Navarro** | `florencia.navarro@siffa.org` | `florencia2026` | Psicóloga Social (UP50) |
+| **Camila Benítez** | `camila.benitez@siffa.org` | `camila2026` | Tallerista Textil (UP40) |
+| **Dr. Esteban Valenzuela** | `esteban.valenzuela@siffa.org` | `esteban2026` | Médico Deportólogo (UP45/51) |
+| **Valeria Sosa** | `valeria.sosa@siffa.org` | `valeria2026` | Árbitra Oficial AFA (UP33) |
+| **Dra. Silvina Campos** | `silvina.campos@siffa.org` | `campos2026` | Directora General SIFFA - SPB |
+| **Guardia Garita UP33** | `guardia.u33@spb.gba.gob.ar` | `garita33` | Validador de Acceso SPB |
+| **Auditoría Forense** | `auditoria@siffa.org` | `auditor2026` | Auditor de Trazabilidad |
+
+---
+
+### 🛠️ Arquitectura Técnica
+- **Frontend**: React 18, Vite, TypeScript, Tailwind CSS.
+- **Backend**: Node.js, Express (`server.ts`, `server/routes.ts`, `server/store.ts`).
+- **Criptografía**: Criptografía asimétrica Ed25519 (`tweetnacl`) para firma y verificación inmutable de tokens QR dinámicos offline.
+- **Gestión Visual**: Gestor de imágenes en tiempo real para el administrador.

@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 1050" fill="none">
+  <!-- SIFFA Official Emblem - Sindicato Internacional de Fútbol Femenino y Afines -->
+  <defs>
+    <linearGradient id="siffaTeal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00BFA5" />
+      <stop offset="50%" stop-color="#00A896" />
+      <stop offset="100%" stop-color="#00897B" />
+    </linearGradient>
+    <filter id="subtleGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#00A896" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <!-- 1. SOCCER BALL AT TOP (Orange outline with pentagon pattern) -->
+  <g transform="translate(345, 60)" filter="url(#subtleGlow)">
+    <!-- Outer circle -->
+    <circle cx="0" cy="0" r="50" fill="#FFFFFF" stroke="#F36C21" stroke-width="4.5" />
+    
+    <!-- Central Pentagon -->
+    <polygon points="0,-16 15,-5 9,13 -9,13 -15,-5" fill="#FFFFFF" stroke="#F36C21" stroke-width="3.5" />
+    
+    <!-- Radiating Seam Lines & Outer Polygons -->
+    <!-- Top point to outer circle -->
+    <line x1="0" y1="-16" x2="0" y2="-49" stroke="#F36C21" stroke-width="3" stroke-linecap="round" />
+    <line x1="0" y1="-49" x2="-28" y2="-41" stroke="#F36C21" stroke-width="3" />
+    <line x1="0" y1="-49" x2="28" y2="-41" stroke="#F36C21" stroke-width="3" />
+    
+    <!-- Top-Right point to outer circle -->
+    <line x1="15" y1="-5" x2="44" y2="-23" stroke="#F36C21" stroke-width="3" stroke-linecap="round" />
+    <line x1="44" y1="-23" x2="28" y2="-41" stroke="#F36C21" stroke-width="3" />
+    <line x1="44" y1="-23" x2="49" y2="9" stroke="#F36C21" stroke-width="3" />
+    
+    <!-- Bottom-Right point to outer circle -->
+    <line x1="9" y1="13" x2="35" y2="35" stroke="#F36C21" stroke-width="3" stroke-linecap="round" />
+    <line x1="35" y1="35" x2="49" y2="9" stroke="#F36C21" stroke-width="3" />
+    <line x1="35" y1="35" x2="7" y2="49" stroke="#F36C21" stroke-width="3" />
+    
+    <!-- Bottom-Left point to outer circle -->
+    <line x1="-9" y1="13" x2="-35" y2="35" stroke="#F36C21" stroke-width="3" stroke-linecap="round" />
+    <line x1="-35" y1="35" x2="7" y2="49" stroke="#F36C21" stroke-width="3" />
+    <line x1="-35" y1="35" x2="-49" y2="9" stroke="#F36C21" stroke-width="3" />
+    
+    <!-- Top-Left point to outer circle -->
+    <line x1="-15" y1="-5" x2="-44" y2="-23" stroke="#F36C21" stroke-width="3" stroke-linecap="round" />
+    <line x1="-44" y1="-23" x2="-28" y2="-41" stroke="#F36C21" stroke-width="3" />
+    <line x1="-44" y1="-23" x2="-49" y2="9" stroke="#F36C21" stroke-width="3" />
+  </g>
+
+  <!-- 2. DYNAMIC FEMALE PLAYER SILHOUETTE (Vibrant Teal) -->
+  <g fill="url(#siffaTeal)">
+    <!-- Head -->
+    <circle cx="230" cy="215" r="32" />
+
+    <!-- Left Arm curving high upwards (like a crescent moon) -->
+    <path d="M 175,255 C 135,235 95,170 82,105 C 74,68 85,32 87,24 C 88,20 94,22 96,26 C 108,55 125,95 158,135 C 185,170 198,200 188,235 Z" />
+
+    <!-- Main Torso & Right Arm in motion -->
+    <path d="M 195,245 C 240,240 315,242 405,235 C 412,234 416,241 411,245 C 365,270 300,285 240,295 C 205,302 185,325 178,350 C 160,420 185,465 240,480 C 275,490 320,488 385,475 C 394,473 392,482 385,486 C 315,525 245,510 190,470 C 150,440 135,395 142,340 C 148,295 168,260 195,245 Z" />
+
+    <!-- Fluid Lower Kick Wave & Ribbon Motion -->
+    <path d="M 145,415 C 185,475 255,540 350,535 C 420,530 480,485 550,515 C 560,520 565,528 555,532 C 490,560 415,570 350,560 C 265,545 195,510 150,440 C 142,425 140,412 145,415 Z" />
+
+    <!-- Trailing dynamic swoosh ending in a fine downward tip -->
+    <path d="M 178,485 C 235,580 275,660 305,790 C 307,798 303,800 301,795 C 275,700 230,620 162,540 C 158,535 160,528 165,525 C 170,520 174,510 178,485 Z" />
+  </g>
+
+  <!-- 3. WORDMARK "SIFFA" (Deep dark petrol teal) -->
+  <text x="300" y="930" 
+        text-anchor="middle" 
+        font-family="-apple-system, BlinkMacSystemFont, 'Montserrat', 'Arial Black', sans-serif" 
+        font-weight="900" 
+        font-size="132" 
+        fill="#0B3C35" 
+        letter-spacing="2">SIFFA</text>
+
+  <!-- 4. SUBTITLE "Sindicato Internacional de Fútbol Femenino y Afines" (Vibrant Orange) -->
+  <text x="300" y="980" 
+        text-anchor="middle" 
+        font-family="-apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', Arial, sans-serif" 
+        font-weight="800" 
+        font-size="24" 
+        fill="#F36C21" 
+        letter-spacing="0.2">Sindicato Internacional de Fútbol Femenino y Afines</text>
+</svg>
